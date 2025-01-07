@@ -1,2 +1,3 @@
-.env/example/PRIVATE_KEY
+.env
+.env.example
 venv
