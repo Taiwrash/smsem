@@ -19,7 +19,9 @@ data = load_model()
 classifier = data['model']
 vectorizer = data['vectorizer']
 
-w3 = Web3(Web3.HTTPProvider(os.getenv('WEB3_PROVIDER_URI')))
+alchemy_key = os.getenv('WEB3_PROVIDER_URL')
+
+w3 = Web3(Web3.HTTPProvider(f"https://eth-sepolia.g.alchemy.com/v2/{alchemy_key}"))
 contract = w3.eth.contract(address=os.getenv('CONTRACT_ADDRESS'), abi=os.getenv('ABI'))
 
 @app.route('/predict', methods=['POST'])
@@ -38,7 +40,7 @@ def predict():
     prediction = classifier.predict_proba(transformed_data)[:, 1]
     result = "spam" if prediction >= 0.3 else "not spam"
 
-    result_to_blockchain = f'{{"isFraud": {result}}}'
+    result_to_blockchain = f'{{"message": {message}, "prediction": {result}}}'
 
     nonce = w3.eth.get_transaction_count(w3.eth.default_account)
     tx = contract.functions.addTransaction(result_to_blockchain).build_transaction({
