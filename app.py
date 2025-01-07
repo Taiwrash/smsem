@@ -43,9 +43,9 @@ def predict():
     result_to_blockchain = f'{{"message": {message}, "prediction": {result}}}'
 
     nonce = w3.eth.get_transaction_count(w3.eth.default_account)
-    tx = contract.functions.addTransaction(result_to_blockchain).build_transaction({
+    tx = contract.functions.addMessage(result_to_blockchain).build_transaction({
             'chainId': 11155111,
-            'gas': 2000000,
+            'gas': 1000000,
             'gasPrice': w3.to_wei('50', 'gwei'),
             'nonce': nonce,
         })

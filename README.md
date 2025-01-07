@@ -25,5 +25,5 @@ curl -X POST -H "Content-Type: application/json" -d '{"message": "Your message h
   "message": "Your message here"
 }
 
-## List of Transactions
-![alt text](image.png)
+## List of Messages
+![alt text](image-1.png)
